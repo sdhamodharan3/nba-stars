@@ -1,4 +1,4 @@
-**Team Members: Srinath Dhamodharan, Aiza Aslam, Shelby Crips, Neallie Glasser**
+**Team Members: Srinath Dhamodharan, Aiza Aslam, Shelby Crisp, Nealie Glasser**
 
 ## Introduction
 
