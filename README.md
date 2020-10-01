@@ -1,4 +1,6 @@
-## Welcome to GitHub Pages
+**Bold** Team Members: Srinath Dhamodharan, Aiza Aslam, Shelby Crips, Neallie Glasser
+
+## Introduction
 
 You can use the [editor on GitHub](https://github.com/sdhamodharan3/nba-stars/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
