@@ -1,6 +1,6 @@
 **Team Members: Srinath Dhamodharan, Aiza Aslam, Shelby Crisp, Nealie Glasser**
 
-![Infographic](NBA.jpeg)
+![Infographic](NBA.JPG)
 
 # Introduction
 ## Background
