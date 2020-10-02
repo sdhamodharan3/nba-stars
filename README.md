@@ -30,3 +30,8 @@ The results we hope to achieve would be an accurate prediction of which team win
 We hope that our model and methods become an accurate predictor for NBA game outcomes based on just the star players' performances on either team. While we don't expect it to be a perfect predictor, we hope that it's accurate enough. This would allow teams to decide on various teammaking and playmaking strategies around these all-stars and would also impact the players' values and betting. Depending on the results, there may be ways to improve our model/methods and possibly expand this application to other team based sports.
 
 # References
+Bunker, Rory P., and Fadi Thabtah. “A Machine Learning Framework for Sport Result Prediction.” Applied Computing and Informatics, vol. 15, no. 1, 19 Sept. 2017, pp. 27–33., doi:10.1016/j.aci.2017.09.005. 
+
+Fayad, Alexander. “Building My First Machine Learning Model: NBA Prediction Algorithm.” Medium, Towards Data Science, 12 July 2020, towardsdatascience.com/building-my-first-machine-learning-model-nba-prediction-algorithm-dee5c5bc4cc1. 
+
+Goitia, Francisco. “An Attempt to Predict the NBA with a Machine Learning System Written in Python Part II.” Medium, HackerNoon.com, 29 Apr. 2019, medium.com/hackernoon/how-to-predict-the-nba-with-a-machine-learning-system-written-in-python-part-ii-f276b19520b9. 
