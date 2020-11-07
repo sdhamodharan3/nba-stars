@@ -1,35 +1,55 @@
 **Team Members: Srinath Dhamodharan, Aiza Aslam, Shelby Crisp, Nealie Glasser**
 
-![Infographic](NEW_NBA.JPG)
+![Infographic](NBA_Infographic.png)
 
 # Introduction
 ## Background
 
-Basketball has become one of the most popular sports worldwide. While there are leagues across the world, many atheletes train to play in the NBA, where the most elite players compete for a chance at a championship. The success of each team is typically seen to rest on the performance of each team's star players, taking into account their abilities to score, create plays, and defend.
+Basketball has become one of the most popular sports worldwide. While there are leagues across the world, many athletes train to play in the NBA, where the most elite players compete for a chance at a championship. The success of each team is typically seen to rest on the performance of each team's star players, taking into account their abilities to score, create plays, and defend. While some players are seen better than others and some teams are considered favorites in their games, the outcomes of games are never certain. There are numerous characteristics that determine a team and player's performance and the winner of each game. The goal for this project is to use data from the top three players from each team to determine the results of a game between teams. To do this, we need a usable dataset.
 
-## The Problem
-While some players are seen better than others and some teams are considered favorites in their games, the outcomes of games are never certain. There are numerous characteristics that determine a team and player's performance and the winner of each game.
+## Data
 
-## Importance
-A model that can accurately predict the outcome of a game based on the stars can provide a lot of insight on the head-to-head between the stars. This can have huge impacts on the game itself knowing what might be optimal strategies for a certain team's offensive strategy and the opposing team's plan to counter these stars. For each franchise it could impact roster decisions to move certain players to improve the team's odds at winning. In addition, successful predictions can have an impact on the business side for bets.
+Our data was initially taken from basketball-reference.com. One dataset included the 2020 overall season schedule, which includes features that list the team names and their scores for each game. The other dataset included the seasonal top 3 players on each NBA team, with features that cover their playing statistics. To see the original season dataset, see 2020_season_sched.csv. To see the original dataset of the top 3 players for each team, see top_3_each_team.csv. This dataset is temporal, as it only consists of a single season’s stats.
 
-## Goal
-We will be isolating the top two to three players on each team and analyzing their most relevant statistics over the past few NBA seasons to predict the outcome of NBA games.
+![Dataset](top_3_each_team.png)
 
-# Methods (Expected)
-## Unsupervised
-For our unsupervised methods, we expect to use K-Means and PCA for dimensionality reduction and feature correlation. We expect that these methods will be able to cluster our data to identify the most relevant features of a player's stats that affect the outcome of the game. This way, we can reduce the dimensionality of our problem by eliminating certain features for our supervised learning that we find don't significantly impact who wins each NBA game.
+## Objective for Unsupervised Learning
 
-## Supervised
-For our supervised methods, we plan on exploring several methods such as Neural Networks, random forests, and SVM. We will use our data to train these methods and comparing the results to see if our model can succesfully predict the outcome of a game based on the top players' performance.
+Having excess features in data can have a negative impact on model performance. An increase in features increases the size of the dataset being processed, which can affect runtime and allow algorithms to train faster. Redundancy in data stemming from irrelevant features can cause overfitting, where the algorithms will make incorrect decisions. Overall, accuracy will improve with data that has only relevant features. Through the use of unsupervised learning algorithms, we can learn about our dataset and find ways to decrease the number of features to improve performance without negative effects.
 
-# Results
-The results we hope to achieve would be an accurate prediction of which team wins based on the performance from their top two or three players. We will measure our success by comparing our results with the Vegas odds for the game as well as also comparing against the actual outcome of these games. 
+# Methods
+## Correlation Heatmap
 
-# Discussion
-We hope that our model and methods become an accurate predictor for NBA game outcomes based on just the star players' performances on either team. While we don't expect it to be a perfect predictor, we hope that it's accurate enough. This would allow teams to decide on various teammaking and playmaking strategies around these all-stars and would also impact the players' values and betting. Depending on the results, there may be ways to improve our model/methods and possibly expand this application to other team based sports.
+In order to reduce the data to the most relevant features, we created a pearson correlation matrix and heatmap, visualized below.
+
+![Heatmap](correlation.png)
+
+As shown in the matrix, the diagonal is perfectly correlated as expected, but we noticed some areas where feature reduction could be done, such as how offensive rebounds (ORB), defensive rebounds (DRB) and total rebounds (TRB) all had correlation values of around 0.95, so we decided the data could simply be represented using TRB. This was repeated for other trends like this we noticed from the matrix. The data was then cleaned and formatted in order of each team, and can be seen at season_2020_sched_clean.csv and top_3_each_team_clean.csv. These final datasets consist of 1144 data points and 4 features and 90 data points and 15 features, respectively
+
+![Dataset](final_dataset.png)
+
+## K-Means Clustering
+
+![K-means](kmeans.png)
+
+Another way that data could be reduced would be to cluster like data points together and see if the resulting clusters correspond to similar win-loss ratios. By plotting loss over various numbers of clusters, we found that the point at which loss flattens would be at about four clusters. Therefore we used four clusters to represent the data. This can be seen in the visualization below as well as in the coloring for our PCA visualization.
+
+![K-means](visualization.png)
+
+## Primary Component Analysis
+
+Primary component analysis is a good way to reduce features of a dataset. PCA reduces the dimension of a feature space in such a way that the new features are largely independent of each other. Dimensions that are highly correlated can be combined to form a stronger feature. For PCA we chose a .95 target variance for dimensionality. With this threshold, we were able to reduce to 9 components. We were able to plot each component in order to visualize. Our results from k-means were overlaid in the color of each data point.
+
+![PCA](PCA_1.png)
+
+![PCA](PCA_2.png)
+
+# Future Work
+
+Our initial goal was to use unsupervised learning to cluster our data and reduce the number of features of our data. At this stage, we are only able to compare performance between different parameter options of these unsupervised algorithms. Here we have optimized based on the given dataset. We will use all reduced datasets when modeling in supervised models and draw conclusions based on their performance at that point. Some future work would be to decide on some improvements to our dataset based off of initial supervised learning results. For example, instead of having the top 3 players’ seasonal averages, it might be beneficial to scrape the data for their stats for each game so they can be directly correlated to each game’s outcome. Once the datasets are finalized, we will move to the supervised learning stage to relate these statistics to the outcome of each game. We will try several supervised learning methods such as neural networks, random forest regression, and SVM. Since the only two outcomes for a game are either a win or a loss, these will be the two classifiers for our classification models we plan on making using supervised learning. 
 
 # References
+
 Bunker, Rory P., and Fadi Thabtah. “A Machine Learning Framework for Sport Result Prediction.” Applied Computing and Informatics, vol. 15, no. 1, 19 Sept. 2017, pp. 27–33., doi:10.1016/j.aci.2017.09.005. 
 
 Fayad, Alexander. “Building My First Machine Learning Model: NBA Prediction Algorithm.” Medium, Towards Data Science, 12 July 2020, towardsdatascience.com/building-my-first-machine-learning-model-nba-prediction-algorithm-dee5c5bc4cc1. 
