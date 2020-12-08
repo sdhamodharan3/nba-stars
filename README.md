@@ -1,7 +1,5 @@
 **Team Members: Srinath Dhamodharan, Aiza Aslam, Shelby Crisp, Nealie Glasser**
 
-![Infographic](NBA_Infographic.png)
-
 # Introduction
 ## Background
 
@@ -44,9 +42,50 @@ Primary component analysis is a good way to reduce features of a dataset. PCA re
 
 ![PCA](PCA_2.png)
 
-# Future Work
+## Objective for Supervised Learning
 
-Our initial goal was to use unsupervised learning to cluster our data and reduce the number of features of our data. At this stage, we are only able to compare performance between different parameter options of these unsupervised algorithms. Here we have optimized based on the given dataset. We will use all reduced datasets when modeling in supervised models and draw conclusions based on their performance at that point. Some future work would be to decide on some improvements to our dataset based off of initial supervised learning results. For example, instead of having the top 3 players’ seasonal averages, it might be beneficial to scrape the data for their stats for each game so they can be directly correlated to each game’s outcome. Once the datasets are finalized, we will move to the supervised learning stage to relate these statistics to the outcome of each game. We will try several supervised learning methods such as neural networks, random forest regression, and SVM. Since the only two outcomes for a game are either a win or a loss, these will be the two classifiers for our classification models we plan on making using supervised learning. 
+For the supervised learning portion of our project, we decided to implement a random forest algorithm as well as a neural network. The random forest algorithm was chosen due to how well it performs with smaller datasets. The application of machine learning for sports betting is not novel, and random forest is often implemented as a solution. Because of the effect minimal changes in player stats can have on wins and losses, as well as the complexity of the data and large feature space, we decided to use neural networks as well. Below are our findings, as well as what we would change in future implementations. We used our data after feature selection, as our K-means and PCA implemented data had much lower accuracy in both random forest and neural network.
+
+## Random Forest
+
+Random forest is a classification algorithm. It consists of many decision trees combined. A decision tree is a modelling approach that, like its name suggests, takes a tree like structure in classifying datasets. At each level in a decision tree, the dataset is split based off of a feature into similar subgroups. Random forests consist of many individual decision trees that operate together to form a consensus. This works well, since the failure of one decision tree to properly classify data will not immediately cause failure of the system unless the entire ensemble of trees all come to the same incorrect conclusion.
+
+### Our Implementation
+
+We decided to use k-fold cross validation in our implementation. This is useful in limited data samples, and usually results in less biased models than other methods. 5 was chosen as our k value as it is a common choice for this parameter. Our sample was split into 5 groups which were then used as a test data set with the remaining as training. The model was fit on the training set and then evaluated on the test set. We used random search for hyperparameter selection and tuning. 200 iterations were completed with random combinations of hyperparameters to pick the best model. We ended up with 154 estimators and a max depth of 5. Lastly, we did an analysis of feature importance to look specifically at the most important features. We did not see an obvious need to eliminate any features based on this analysis; however, we experimented with this anyway, eliminating all but the 10 most important features, which actually decreased the accuracy of our results. We used a strip plot to look more closely at the correlation between defensive rebounds (the most important feature) and outcome prediction, and we found a low defensive rebound number for team 2 corresponded with a higher chance of winning for team 1, and vice versa, which is the relationship we would expect to see.
+
+![Strip Plot](strip_plot.png)
+
+![Feature Importance](features.png)
+
+### Comparison
+
+![Accuracy](rf_eval.png)
+
+Our random forest implementation didn’t perform all too well. We were only able to achieve a 65.6% accuracy rate. However, our precision wasn’t bad, at 70%. The F1-Score ended up at 58%, which we would like to be closer to 100%. One weakness in our implementation is a lack of data. Since we honed in on one years’ worth of player and game statistics, we didn’t have a lot of data to work with. In future implementations we could go further back in NBA stats. To break even in sports betting, a better must be correct 52.4% of the time. So we technically could make a profit with Random Forest.
+
+![Confusion Matrix](rf_cm.png)
+
+## Neural Networks
+
+A neural network is a learning technique modeled loosely off of the human brain. Like neurons of the brain, a neural network consists of interconnected nodes that process information. Neural nets work by passing data through multiple layers of neurons that transform data towards a goal. Errors that propagate in these transformations are used to better train the neural net. One strength of a neural network is that it can model complex relationships. Since there is a lot of complexity between the average performance of a few players and the performance of their teams, this was a useful characteristic for our algorithm to have.
+
+### Our Implementation
+
+Much like our Random Forest implementation, we again used 5-fold cross validation. We used this algorithm for the aforementioned reasons. To tune hyperparameters for our neural network, we used a grid search as opposed to a random search. This tries every combination from a specified grid of hyperparameters. We used Rectified Linear Unit as our activation function which is simply a piecewise function that outputs the input if it’s positive, otherwise outputting zero. It has the advantage of being more efficient than other activation functions due to its simplicity. We ended up using two hidden layers. Our regularization parameter, alpha, was 5.4.
+
+![params](NN_params.png)
+
+### Comparison
+![eval](NN_eval.png)
+
+Compared to Random Forest, our neural network didn’t fare any better. It still had an accuracy of around 65%. This is likely due to the fact that we have a small dataset. Our F1 score for the neural net was 59%, which is slightly higher than the score for our Random Forest. However, our precision was a lot lower, at 52%. We still would be able to make a profit in Vegas, however we had hoped for better results. While we weren’t able to get a highly accurate game predictor, it isn’t very surprising. If we could predict something so complex very easily, there would be no fun in watching sports at all.
+
+![Confusion Matrix](NN_cm.png)
+
+# Conclusion
+
+Would we be able to turn a profit in Vegas? Yes. Since we are able to get above 52.4% accuracy, which is necessary to break even, we would be able to turn a profit. However, in the future we would want to increase our margins further. To do this, we would first increase the size of our dataset by going further back in NBA stats. We could also try a larger variety of algorithms. While the algorithms we chose have been used historically to gauge game results, as well as have strengths that seem to make up for drawbacks in our data, the only way we could know the best algorithm for sure is to test a wider variety. Between Random Forest and Neural Net, we achieved similar F1 scores, with our Neural network implementation scoring slightly better. However, our precision was much lower, meaning our neural network had more false positives. Both were similarly accurate, and could be used interchangeably in that sense. 
 
 # References
 
